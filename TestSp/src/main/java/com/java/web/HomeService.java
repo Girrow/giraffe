@@ -10,6 +10,5 @@ public class HomeService {
 	
 	public Map<String,Object> getData(){
 		return new HashMap<String,Object>();
-		
 	}
 }
