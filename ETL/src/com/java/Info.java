@@ -14,14 +14,14 @@ public class Info {
 //	꼭 값을 arrayList로 선정을 해주어야 하는가?  new ArrayList<Map<String, String>>();
 	
 	public InfoBean step1() {
-		String url="jdbc:mysql://gdj16.gudi.kr:53306/hole";
+		String url="jdbc:mysql://:53306/hole";
 		String user="m15";
 		String password="m15";
 		return new InfoBean(driver,url,user,password);
 	}
 	
 	public InfoBean step2() {
-		String url="jdbc:mysql://gdj16.gudi.kr:53306/201907";	//보낼 값
+		String url="jdbc:mysql://:53306/201907";	//보낼 값
 		String user="m15";
 		String password="m15";
 		return new InfoBean(driver,url,user,password);
