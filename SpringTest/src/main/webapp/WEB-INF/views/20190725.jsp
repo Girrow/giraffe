@@ -64,6 +64,21 @@ $(document).ready(function(){
 
 	function createHtml(){
 		get();
+		/*수정*/
+		let selectData = {"method":"selects"};
+		$.ajax({
+			url:"http://localhost:8080/exam2",
+			method:"GET",
+			type:"json",
+			data:selectData,
+			success:function(data){
+				console.log("data: "+data);
+			},
+			complete:function(){
+				console.log("ajax 끝");
+			}
+		});
+		
 		$("tbody").empty();
 		$("#text").val("");
 		for(var j = 0; j < storage.length; j++){
@@ -106,7 +121,8 @@ $(document).ready(function(){
 		var text = $("#text").val();
 		if(text){
 			var newData = {"no": i, "text": text};
-			let insertData = {"tableNo": i, "content": text};
+			/*수정*/
+			let insertData = {"method":"insert","tableNo": i, "content": text};
 			$.ajax({
 				url:"http://localhost:8080/exam2",
 				method:"GET",
@@ -134,8 +150,30 @@ $(document).ready(function(){
 				var text = $("#text").val();
 				newData.text = text;
 				storage[index] = newData;
+				/*수정*/
+				let updateData = {"method":"update","tableNo": (index+1), "content": text};
+				$.ajax({
+					url:"http://localhost:8080/exam2",
+					method:"GET",
+					type:"json",
+					data:updateData,
+					success:function(data){
+					}
+				});
+				
 			}else if(type == "delete"){
 				storage.splice(index, 1);
+				
+				/*수정*/
+				let deleteData = {"method":"delete","tableNo": (index+1)};
+				$.ajax({
+					url:"http://localhost:8080/exam2",
+					method:"GET",
+					type:"json",
+					data: deleteData,
+					success:function(data){
+					}
+				});
 			}
 			set(storage);
 			createHtml();
@@ -156,7 +194,10 @@ $(document).ready(function(){
 	}
 
 	function set(data){
-		localStorage.setItem("data", JSON.stringify(data));
+		/*
+		* 원래 있던 메소드
+		*localStorage.setItem("data", JSON.stringify(data));
+		*/
 	}
 
 	function get(){
