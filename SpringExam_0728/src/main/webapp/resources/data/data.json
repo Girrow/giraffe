@@ -1,0 +1,13 @@
+{"students":[
+        {"no":"1", "nm":"이준희", "point":{"Korean":90,"Math":100,"English":10,"Science":20}},
+        {"no":"2", "nm":"김희도", "point":{"Korean":80,"Math":90,"English":100,"Science":10}},
+        {"no":"3", "nm":"박동익", "point":{"Korean":70,"Math":80,"English":90,"Science":100}},
+        {"no":"4", "nm":"장성태", "point":{"Korean":60,"Math":70,"English":80,"Science":90}},
+        {"no":"5", "nm":"하정환", "point":{"Korean":50,"Math":60,"English":70,"Science":80}},
+        {"no":"6", "nm":"이충연", "point":{"Korean":40,"Math":50,"English":60,"Science":70}},
+        {"no":"7", "nm":"김태훈", "point":{"Korean":30,"Math":40,"English":50,"Science":60}},
+        {"no":"8", "nm":"이여은", "point":{"Korean":20,"Math":30,"English":40,"Science":50}},
+        {"no":"9", "nm":"박재원", "point":{"Korean":10,"Math":20,"English":30,"Science":40}},
+        {"no":"10", "nm":"진영훈", "point":{"Korean":100,"Math":10,"English":20,"Science":30}}
+    ]
+}
