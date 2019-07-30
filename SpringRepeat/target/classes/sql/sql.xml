@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sql">
+  <select id="getData" resultType="hashmap">
+    select *,ROW_NUMBER() OVER() as `listNO` from m15_table
+  </select>
+  
+  <select id="getListNumb" resultType="hashmap">
+  	select *,ROW_NUMBER() OVER() as `listNO` from m15_table
+  </select>
+  
+  
+  <insert id="insert" parameterType="hashmap">
+  	INSERT INTO m15_table(postNo,content,writer) VALUES (#{postNo}, #{content}, #{writer});
+  </insert>
+  
+  <update id="truncate">
+  	TRUNCATE TABLE m15_table
+  </update>
+  
+  <update id="update" parameterType="hashmap">
+  	update m15_table
+       set content=#{content}
+     where no = (select b.no
+ 				   from (select *,ROW_NUMBER() OVER() as `listNO` from m15_table) as b
+				  where `listNO`='${index}')
+  </update>
+  
+  <delete id="delete" parameterType="hashmap">
+  	DELETE
+  	  FROM m15_table
+  	 WHERE no = (SELECT b.no
+ 				   FROM (select *,ROW_NUMBER() OVER() as `listNO` from m15_table) as b
+				  WHERE `listNO`='${index}')
+  </delete>
+</mapper>
