@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sql">
+  <select id="getData" resultType="hashmap">
+    select 1 as cnt
+  </select>
+  
+  <insert id="insert" parameterType="hashmap">
+  	INSERT INTO m15_t1 VALUES (#{tit}, #{date}, #{clearfix});
+  </insert>
+  
+  <update id="truncate">
+  	TRUNCATE TABLE m15_t1
+  </update>
+  
+  <delete id="delete" parameterType="hashmap">
+  	DELETE FROM m15_t1 WHERE title = #{tit} and date = #{date}
+  </delete>
+</mapper>
+
+
+<!--
+ 
+CREATE TABLE m15_t1(
+	title VARCHAR(100),
+	`date` VARCHAR(100),
+	`comment` VARCHAR(100)
+);
+INSERT INTO m15_t1 VALUES(title,`date`,`comment`);
+
+ -->

@@ -1,0 +1,33 @@
+package com.java.Bean;
+
+
+public class PostingBean {
+	private String postNo;
+	private String content;
+	private String writer;
+	
+	public String getPostNo() {
+		return postNo;
+	}
+	public void setPostNo(String postNo) {
+		this.postNo = postNo;
+	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
+	public String getWriter() {
+		return writer;
+	}
+	public void setWriter(String writer) {
+		this.writer = writer;
+	}
+	
+	@Override
+	public String toString() {
+		return "PostingBean [postNo=" + postNo + ", content=" + content + ", writer=" + writer + "]";
+	}
+	
+}

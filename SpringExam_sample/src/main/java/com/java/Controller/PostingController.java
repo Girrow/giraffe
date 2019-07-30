@@ -34,7 +34,6 @@ public class PostingController {
 	
 	@RequestMapping(value="/",method = RequestMethod.POST)
 	public void selectPost(HttpServletRequest req,HttpServletResponse res) {
-		
 		List<Map> viewMap = postingDAO.selectAllOfPost();
 		res.setCharacterEncoding("UTF-8");
 		res.setContentType("application/json");
@@ -108,7 +107,6 @@ public class PostingController {
 	
 	@RequestMapping(value="/login",method = RequestMethod.POST)
 	public void addUser(HttpServletRequest req,HttpServletResponse res) {
-		/*
 //		String switchFlag=req.getParameter("switchFlag");
 		String username=req.getParameter("username");
 		String password=req.getParameter("password");
@@ -118,7 +116,6 @@ public class PostingController {
 		user.setUsername(username);
 		user.setPassword(password);
 		userDAO.setUser(user);
-		*/
 	}
 	
 	@RequestMapping(value="/loginCk",method = RequestMethod.POST)
