@@ -5,11 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import com.java.Bean.PostingBean;
 
-@Repository
+@Service
 public class PostingDAOI implements PostingDAO{
 	private List<Map> list = new ArrayList<Map>();
 
