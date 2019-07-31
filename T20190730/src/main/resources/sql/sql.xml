@@ -5,17 +5,18 @@
 <mapper namespace="sql">
   <select id="getData" resultType="hashmap">
     select 1 as cnt
+<!-- 	select 1 from dual -->
   </select>
   
   <insert id="insert" parameterType="hashmap">
-  	INSERT INTO m0_t1 VALUES (#{tit}, #{date}, #{clearfix});
+  	INSERT INTO m15_table VALUES (#{tit}, #{date}, #{clearfix});
   </insert>
   
   <update id="truncate">
-  	TRUNCATE TABLE m0_t1
+  	TRUNCATE TABLE m15_table
   </update>
   
   <delete id="delete" parameterType="hashmap">
-  	DELETE FROM m0_t1 WHERE title = #{tit} and date = #{date}
+  	DELETE FROM m15_table WHERE title = #{tit} and date = #{date}
   </delete>
 </mapper>

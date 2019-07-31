@@ -11,6 +11,7 @@ import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.gudi.web.dao.CommonDaoInterface;
 import kr.gudi.web.dao.TestDaoInterface;
 
 @Service
@@ -21,9 +22,17 @@ public class TestService implements TestServiceInterface {
 	
 	final String ADDR = "http://gdu.co.kr/process/process_010100.html";
 	
+	@Autowired
+	CommonDaoInterface cdi;
+	
 	@Override
 	public HashMap<String, Object> getData() {
-		return tdi.getData();
+//		return tdi.getData();
+		HashMap<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("queryType", "selectOne");
+		paramMap.put("queryTarget", "sql.getData");
+		paramMap.put("params", null);
+		return cdi.commonDB(paramMap);
 	}
 	
 	@Override
