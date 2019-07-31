@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="crawling">
+	<insert id="first_insert" parameterType="hashmap">
+		INSERT INTO firstTable VALUES (#{tit}, #{date}, #{clearfix});
+	</insert>
+	
+	<delete id="first_delete" parameterType="hashmap">
+  		DELETE FROM firstTable WHERE title = #{tit} and date = #{date}
+	</delete>
+	
+	<select id="first_select" resultType="hashmap">
+		select * from firstTable
+	</select>
+</mapper>

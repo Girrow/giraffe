@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="org.mariadb.jdbc.Driver"/>
+		<property name="url" value="jdbc:mysql://192.168.29.169:3306/test"/>
+		<property name="username" value="root"/>
+		<property name="password" value="1234"/>
+	</bean>
+	
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mapperLocations" value="classpath:/sql/*.xml" />
+	</bean>
+	
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+
+	
+<!-- 	<bean id="dataSourceMariaDB"  -->
+<!-- 	      class="org.springframework.jdbc.datasource.DriverManagerDataSource"  -->
+<!-- 	      p:driverClassName="org.mariadb.jdbc.Driver" -->
+<!-- 	      p:url="jdbc:mysql://Server.kr:3306/DBTEST" -->
+<!-- 	      p:username="root" -->
+<!-- 	      p:password="1234" /> -->
+	
+<!-- 	<bean id="sqlSessionFactory"  -->
+<!-- 	      class="org.mybatis.spring.SqlSessionFactoryBean"  -->
+<!-- 	      p:dataSource-ref="dataSourceMariaDB" -->
+<!-- 	      p:mapperLocations="classpath:/sql/*.xml"/> -->
+	
+<!-- 	<bean id="sqlSession" -->
+<!-- 	      class="org.mybatis.spring.SqlSessionTemplate"  -->
+<!-- 	      c:sqlSessionFactory-ref="sqlSessionFactory"/> -->
+
+
+<!-- 	<bean id="dataSourceOracle"  -->
+<!-- 	      class="org.springframework.jdbc.datasource.DriverManagerDataSource"  -->
+<!-- 	      p:driverClassName="oracle.jdbc.driver.OracleDriver" -->
+<!-- 	      p:url="jdbc:oracle:thin:@192.168.3.164:1521:orclcdb" -->
+<!-- 	      p:username="gdj16" -->
+<!-- 	      p:password="1234" /> -->
+			
+</beans>
