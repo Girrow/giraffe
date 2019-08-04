@@ -95,34 +95,49 @@
 			var storage = [];
 			var numb = 0;
 			var i = 1;
-			var flag=false;
-			var writer = "정정";
+			var flag = false;
+			var writer = "익명";
 
 			$("form").submit(function (e) {
 				e.preventDefault();
+				if($(this).attr("id") =="addUser"){
+					$("#myModal").modal();
+				}
 				if ($(this).attr("id") == "login") { // modal 이벤트 처리 하는 곳.
-					console.log("111");
+					
+					console.log("123");
 					// 사용자 정보 처리 하는 곳.
-					if (flag) {
+					if ($("#switchFlag").prop("checked")) {
 						console.log("!11");
 						$.ajax({
 							url: "http://localhost:8080/loginCk",
 							method: "POST",
 							type: "json",
+							data: {
+								"username": $("#usrname").val(),
+								"password": $("#psw").val()
+							},
 							success: function (data) {
-
+								console.log("result =",data);
+								if(data.result.exist==1){
+									localStorage.setItem("loginInfo", JSON.stringify(data.result));
+								}
 							}
 						});
-					}else{
-						console.log("username",$("#usrname").val());
-						console.log("password=",$("#psw").val());
+					} else {
+						console.log("username", $("#usrname").val());
+						console.log("password=", $("#psw").val());
 						$.ajax({
 							url: "http://localhost:8080/login",
 							method: "POST",
 							type: "json",
-							data:{"username":$("#usrname").val(),"password":$("#psw").val()},
+							data: {
+								"username": $("#usrname").val(),
+								"password": $("#psw").val()
+							},
 							success: function (data) {
-
+								console.log("data 2:",data);
+								// localStorage.setItem("loginInfo", JSON.stringify(data));
 							}
 						});
 					}
@@ -202,22 +217,22 @@
 
 									if ($(this).prop("checked")) { // 현재 선택한 체크박스의 값이 true인지 확인
 										$("input:checkbox").prop("checked",
-										false); // 전체 체크박스의 값을 false로 변경
+											false); // 전체 체크박스의 값을 false로 변경
 										$(this).prop("checked", true); // 현재 선택한 체크박스의 값만 true로 변경
 
 										text = tds.eq(2).text();
 										$("#text").val(text);
 									} else {
 										$("input:checkbox").prop("checked",
-										false); // 전체 체크박스의 값을 false로 변경
+											false); // 전체 체크박스의 값을 false로 변경
 										$("#text").val("");
 									}
 								});
 							} else {
 								i = 1;
 							}
-						}else{
-							i=1;
+						} else {
+							i = 1;
 						}
 					}
 				});
@@ -231,7 +246,7 @@
 					let insertData = {
 						"postNo": i,
 						"content": text,
-						"writer": writer
+						"writer": JSON.parse(localStorage.getItem("loginInfo")).username
 					};
 
 					$.ajax({
@@ -272,7 +287,7 @@
 							"postNo": numb,
 							"content": text,
 							"index": index,
-							"writer": writer
+							"writer": JSON.parse(localStorage.getItem("loginInfo")).username
 						};
 						$.ajax({
 							url: "http://localhost:8080/update",
@@ -288,7 +303,9 @@
 						//storage.splice(index, 1);
 
 						/*수정*/
-						let deleteData = {index};
+						let deleteData = {
+							index
+						};
 						$.ajax({
 							url: "http://localhost:8080/delete",
 							method: "POST",
@@ -298,6 +315,8 @@
 								createHtml();
 							}
 						});
+					}else if(type == "addUser"){
+						$("#myModal").modal();
 					}
 					//set(storage);
 					//createHtml();
@@ -336,12 +355,14 @@
 				*/
 			}
 
-			$("#switchFlag").click(function(){
+			$("#switchFlag").click(function () {
 				console.log("클릭됨");
-				if(flag){
-					flag=true;
-				}else{
-					flag=false;
+				if (flag) {
+					console.log("flag,",flag);
+					flag = false;
+				} else {
+					console.log("flag,",flag);
+					flag = true;
 				}
 			});
 
@@ -354,17 +375,17 @@
 	<div class="container">
 		<h3>웹 문제</h3>
 		<p>
-			위의 버튼 3개만 이용하여 추가, 수정, 삭제 이벤트를 구현 하시오.<br>
-			1) 추가 : "입력하세요" 입력창을 이용하여 데이터 생성 할 것.<br>
-			2) 수정 : 선택(체크박스)를 선택된 내용만 "입력하세요" 입력창으로 데이터를 가져온 후 수정 할 것.<br>
-			3) 삭제 : 선택(체크박스)를 선택된 내용만 데이터를 삭제 할 것<br>
-			4) 유저 : 추가 시 사용자가 누군지 myModal를 이용하여 정보를 받아서 데이터 처리 하시오.<br>
-			5) 기능 : localStorage 에서 처리 하던 부분를 Spring (Controller)를 이용하여 처리하시오.<br>
-			참조 : 체크박스 이벤트는 위에 있는 script의 이벤트를 같이 이용하여 처리 할것.
+			위의 버튼 3개만 이용하여 추가, 수정, 삭제 이벤트를 구현 <br>
+			1) 추가 : "입력하세요" 입력창을 이용하여 데이터 생성<br>
+			2) 수정 : 선택(체크박스)를 선택된 내용만 "입력하세요" 입력창으로 데이터를 가져온 후 수정<br>
+			3) 삭제 : 선택(체크박스)를 선택된 내용만 데이터를 삭제<br>
+			4) 유저 : 추가 시 사용자가 누군지 myModal를 이용하여 정보를 받아서 데이터 처리하기<br>
+			5) 기능 : localStorage 에서 처리 하던 부분를 Spring (Controller)를 이용하여 처리<br>
+			참조 : 체크박스 이벤트는 위에 있는 script의 이벤트를 같이 이용하여 처리
 		</p>
 	</div>
 	<div class="container">
-		<h1 class="text-center">구디</h1>
+		<h1 class="text-center">Test</h1>
 		<form id="edit">
 			<div class="form-group row">
 				<div class="col-xs-2">
@@ -402,12 +423,12 @@
 				<tr>
 					<td><input type="checkbox"> </td>
 					<td>1</td>
-					<td>JQuery 너무 어렵 ;)</td>
+					<td>jquery</td>
 				</tr>
 				<tr>
 					<td><input type="checkbox"> </td>
 					<td>2</td>
-					<td>LocalStorage 너무 좋아 :)</td>
+					<td>LocalStorage</td>
 				</tr>
 			</tbody>
 		</table>

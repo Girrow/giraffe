@@ -8,9 +8,9 @@
 	<bean id="dataSource" 
 	      class="org.springframework.jdbc.datasource.DriverManagerDataSource" 
 	      p:driverClassName="org.mariadb.jdbc.Driver"
-	      p:url="jdbc:mysql://gdj16.gudi.kr:53306/test"
-	      p:username="m15"
-	      p:password="m15" />
+	      p:url="jdbc:mysql://192.168.29.169:3306/test"
+	      p:username="harin"
+	      p:password="harin" />
 	
 	<bean id="sqlSessionFactory" 
 	      class="org.mybatis.spring.SqlSessionFactoryBean" 

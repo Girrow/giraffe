@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.java.ha.service.PostingServiceI;
+import com.java.ha.service.UserServiceI;
 import com.java.ha.vo.PostingVO;
 import com.java.ha.vo.UserVO;
 
@@ -24,6 +25,10 @@ public class MainController {
 	
 	@Autowired
 	PostingServiceI postingService;
+	
+	@Autowired
+	UserServiceI userService;
+	
 	
 	@RequestMapping("/")
 	public String main() {
@@ -104,11 +109,32 @@ public class MainController {
 		UserVO user=new UserVO();
 		user.setUsername(username);
 		user.setPassword(password);
+		userService.insertUser(user);
 //		userDAO.setUser(user);
 	}
 	
 	@RequestMapping(value="/loginCk",method = RequestMethod.POST)
 	public void checkUser(HttpServletRequest req,HttpServletResponse res) {
 //		System.out.println(userDAO.getUserList().toString());
+		String username=req.getParameter("username");
+		String password=req.getParameter("password");
+		System.out.printf("[%s,%s]",username,password);
+		
+		UserVO user=new UserVO();
+		user.setUsername(username);
+		user.setPassword(password);
+//		System.out.println("select = "+userService.selectUser(user));
+		try {
+			if(true) {
+				JSONObject json = JSONObject.fromObject(userService.selectUser(user));
+				res.setContentType("application/json; charset=utf-8");
+				res.getWriter().write(json.toString());
+			}else {
+				res.getWriter().write("fail");
+			}			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 }

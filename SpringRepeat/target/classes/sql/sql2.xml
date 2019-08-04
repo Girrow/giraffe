@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="useUser">
+  
+  
+  <insert id="m15_insert" parameterType="hashmap">
+  	INSERT INTO m15_user VALUES (#{username}, #{password});
+  </insert>
+  
+  
+  <select id="m15_idSelect" resultType="hashmap">
+  	SELECT COUNT(*) AS 'exist',username
+      FROM m15_user
+     WHERE username = #{username} AND `password` = #{password}
+  </select>
+  
+  
+  <update id="truncate">
+  	TRUNCATE TABLE m15_user
+  </update>
+  
+</mapper>
