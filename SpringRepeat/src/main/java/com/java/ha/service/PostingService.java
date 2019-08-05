@@ -1,5 +1,6 @@
 package com.java.ha.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,6 +34,7 @@ public class PostingService implements PostingServiceI {
 	public void updatePost(PostingVO post, String index) {
 		HashMap<String,String> resultMap = new HashMap<String,String>();
 		resultMap.put("content", post.getContent());
+		resultMap.put("writer",post.getWriter());
 		resultMap.put("index",index);
 		System.out.println("updatePost="+resultMap);
 		postingDAO.updateData(resultMap);

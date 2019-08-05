@@ -24,8 +24,8 @@
   	update m15_table
        set content=#{content}
      where no = (select b.no
- 				   from (select *,ROW_NUMBER() OVER() as `listNO` from m15_table) as b
-				  where `listNO`='${index}')
+ 				       from (select *,ROW_NUMBER() OVER() as `listNO` from m15_table) as b
+				      where `listNO`='${index}')
   </update>
   
   <delete id="delete" parameterType="hashmap">

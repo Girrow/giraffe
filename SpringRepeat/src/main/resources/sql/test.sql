@@ -1,11 +1,13 @@
 CREATE TABLE `m15_table` (
+	`no` INT NULL AUTO_INCREMENT PRIMARY KEY ,
 	`postNo` VARCHAR(5) NULL DEFAULT NULL,
 	`content` VARCHAR(100) NULL DEFAULT NULL,
 	`writer` VARCHAR(20) NULL DEFAULT NULL
 )
-COLLATE='utf8_general_ci'
+COLLATE='utf8_gentesteral_ci'
 ENGINE=InnoDB
 ;
+
 
 CREATE TABLE `m15_user` (
 	`username` VARCHAR(30) NULL DEFAULT NULL,

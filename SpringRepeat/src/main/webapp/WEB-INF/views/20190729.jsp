@@ -121,6 +121,9 @@
 								console.log("result =",data);
 								if(data.result.exist==1){
 									localStorage.setItem("loginInfo", JSON.stringify(data.result));
+									$("#idInfo").html(data.result.username);
+								}else{
+									alert("올바른 로그인 정보가 아닙니다!");
 								}
 							}
 						});
@@ -136,6 +139,7 @@
 								"password": $("#psw").val()
 							},
 							success: function (data) {
+								$("#idInfo").html($("#usrname").val());
 								console.log("data 2:",data);
 								// localStorage.setItem("loginInfo", JSON.stringify(data));
 							}
@@ -199,6 +203,7 @@
 									'<td><input type="checkbox"></td>' +
 									'<td>' + result[j].postNo + '</td>' +
 									'<td>' + result[j].content + '</td>' +
+									'<td>' + result[j].writer + '</td>' +
 									'</tr>';
 								$("tbody").append(tag);
 							}
@@ -243,10 +248,14 @@
 				if (text) {
 					//var newData = {"no": i, "text": text};
 					/*수정*/
+					let writers="";
+					writers=JSON.parse(localStorage.getItem("loginInfo")).username;
+
+
 					let insertData = {
 						"postNo": i,
 						"content": text,
-						"writer": JSON.parse(localStorage.getItem("loginInfo")).username
+						"writer": writers
 					};
 
 					$.ajax({
@@ -373,7 +382,7 @@
 
 <body>
 	<div class="container">
-		<h3>웹 문제</h3>
+		<h3 id="idInfo">웹 문제</h3>
 		<p>
 			위의 버튼 3개만 이용하여 추가, 수정, 삭제 이벤트를 구현 <br>
 			1) 추가 : "입력하세요" 입력창을 이용하여 데이터 생성<br>
@@ -417,6 +426,7 @@
 					<th>선택</th>
 					<th>번호</th>
 					<th>한줄평</th>
+					<th>글쓴이</th>
 				</tr>
 			</thead>
 			<tbody>
