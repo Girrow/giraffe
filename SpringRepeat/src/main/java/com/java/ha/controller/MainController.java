@@ -73,11 +73,12 @@ public class MainController {
 //		String content=req.getParameter("content");
 //		String writer=req.getParameter("writer");
 		String index=Integer.toString((Integer.parseInt(req.getParameter("index"))+1));
-//		
+//		req.getParameter("writer");
 //		PostingVO post = new PostingVO();
 //		post.setPostNo(postNo);
 //		post.setContent(content);
 //		post.setWriter(writer);
+		System.out.println("Writer =" +post.getWriter());
 		postingService.updatePost(post, index);
 		
 		try {

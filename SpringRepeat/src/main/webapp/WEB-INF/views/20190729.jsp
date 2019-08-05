@@ -97,14 +97,16 @@
 			var i = 1;
 			var flag = false;
 			var writer = "익명";
-
+			localStorage.setItem("loginInfo", JSON.stringify({
+				'username': '익명'
+			}));
 			$("form").submit(function (e) {
 				e.preventDefault();
-				if($(this).attr("id") =="addUser"){
+				if ($(this).attr("id") == "addUser") {
 					$("#myModal").modal();
 				}
 				if ($(this).attr("id") == "login") { // modal 이벤트 처리 하는 곳.
-					
+
 					console.log("123");
 					// 사용자 정보 처리 하는 곳.
 					if ($("#switchFlag").prop("checked")) {
@@ -118,11 +120,13 @@
 								"password": $("#psw").val()
 							},
 							success: function (data) {
-								console.log("result =",data);
-								if(data.result.exist==1){
-									localStorage.setItem("loginInfo", JSON.stringify(data.result));
+								console.log("result =", data);
+								if (data.result.exist == 1) {
+									localStorage.setItem("loginInfo", JSON.stringify(data
+										.result));
 									$("#idInfo").html(data.result.username);
-								}else{
+									alert(`${data.result.username}로 로그인됨!`);
+								} else {
 									alert("올바른 로그인 정보가 아닙니다!");
 								}
 							}
@@ -139,8 +143,9 @@
 								"password": $("#psw").val()
 							},
 							success: function (data) {
+								let tmp=$("#usrname").val();
 								$("#idInfo").html($("#usrname").val());
-								console.log("data 2:",data);
+								alert(`${tmp}로 아이디 생성 & 로그인 완료!`);
 								// localStorage.setItem("loginInfo", JSON.stringify(data));
 							}
 						});
@@ -248,8 +253,8 @@
 				if (text) {
 					//var newData = {"no": i, "text": text};
 					/*수정*/
-					let writers="";
-					writers=JSON.parse(localStorage.getItem("loginInfo")).username;
+					let writers = "";
+					writers = JSON.parse(localStorage.getItem("loginInfo")).username;
 
 
 					let insertData = {
@@ -298,33 +303,49 @@
 							"index": index,
 							"writer": JSON.parse(localStorage.getItem("loginInfo")).username
 						};
-						$.ajax({
-							url: "http://localhost:8080/update",
-							method: "POST",
-							type: "json",
-							data: updateData,
-							success: function (data) {
-								createHtml();
-							}
-						});
+
+						if (updateData.writer == $(`tr:nth-child(${index+1}) td:nth-child(4)`).html()) {
+							console.log("writer1=", updateData.writer);
+							console.log($(`tr:nth-child(${index+1}) td:nth-child(4)`).html());
+
+
+							$.ajax({
+								url: "http://localhost:8080/update",
+								method: "POST",
+								type: "json",
+								data: updateData,
+								success: function (data) {
+									createHtml();
+								}
+							});
+						} else {
+							alert("내가 작성한 글이 아닙니다!");
+						}
+
 
 					} else if (type == "delete") {
 						//storage.splice(index, 1);
 
 						/*수정*/
 						let deleteData = {
-							index
+							index,
+							"writer": JSON.parse(localStorage.getItem("loginInfo")).username
 						};
-						$.ajax({
-							url: "http://localhost:8080/delete",
-							method: "POST",
-							type: "json",
-							data: deleteData,
-							success: function (data) {
-								createHtml();
-							}
-						});
-					}else if(type == "addUser"){
+						if (deleteData.writer == $(`tr:nth-child(${index+1}) td:nth-child(4)`).html()) {
+							$.ajax({
+								url: "http://localhost:8080/delete",
+								method: "POST",
+								type: "json",
+								data: deleteData,
+								success: function (data) {
+									createHtml();
+								}
+							});
+						}else{
+							alert("내가 작성한 글이 아닙니다!");
+						}
+
+					} else if (type == "addUser") {
 						$("#myModal").modal();
 					}
 					//set(storage);
@@ -367,10 +388,10 @@
 			$("#switchFlag").click(function () {
 				console.log("클릭됨");
 				if (flag) {
-					console.log("flag,",flag);
+					console.log("flag,", flag);
 					flag = false;
 				} else {
-					console.log("flag,",flag);
+					console.log("flag,", flag);
 					flag = true;
 				}
 			});
@@ -382,7 +403,7 @@
 
 <body>
 	<div class="container">
-		<h3 id="idInfo">웹 문제</h3>
+		<h3 id="idInfo">Id값 오는 곳</h3>
 		<p>
 			위의 버튼 3개만 이용하여 추가, 수정, 삭제 이벤트를 구현 <br>
 			1) 추가 : "입력하세요" 입력창을 이용하여 데이터 생성<br>
