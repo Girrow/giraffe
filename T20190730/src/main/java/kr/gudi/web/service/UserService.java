@@ -11,12 +11,16 @@ import kr.gudi.web.util.HttpUtil;
 
 @Service
 public class UserService implements UserServiceInterface {
-
+	
 	@Override
-	public void callData(String key, HttpServletRequest req, HttpServletResponse res) {
+	public HashMap<String, Object> callData(String key, HttpServletRequest req, HttpServletResponse res) {
 		System.out.println("callData : " + key);
 		HashMap<String, Object> paramMap = HttpUtil.getPatams(req);
-		HttpUtil.makeJsonView(res, paramMap);
+		if((boolean) paramMap.get("status")) {
+			// 디비
+			System.out.println("우린 죽는 것이다!");
+		} 		
+		return paramMap;
 	}
 
 }

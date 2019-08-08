@@ -1,9 +1,11 @@
 package kr.gudi.web.service;
 
+import java.util.HashMap;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public interface UserServiceInterface {
 
-	public void callData(String key, HttpServletRequest req, HttpServletResponse res);
+	public HashMap<String, Object> callData(String key, HttpServletRequest req, HttpServletResponse res);
 }
