@@ -26,10 +26,33 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 public class Connection extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Configuration conf = new Configuration();
+		Configuration localConf = new Configuration();
 		// local info 로컬 정보가 필요한가?
-		FileSystem localSystem = FileSystem.getLocal(conf);
 		
+		FileSystem localSystem = FileSystem.getLocal(localConf);
+		FileStatus[] fileList = localSystem.listStatus(new Path("D:\\data\\data2"));
+		for(int i = 0; i < fileList.length; i++) {
+			System.out.println(fileList[i].getPath().getName());
+		}
+		try {
+			FSDataInputStream fsis = localSystem.open(new Path("D:\\data\\data2\\1987.csv"));
+			BufferedReader br = new BufferedReader(new InputStreamReader(fsis));
+			String line = null;
+			while ((line = br.readLine()) != null) {
+			    //do something here
+				String[] a=line.split("\\s");
+				System.out.println(line);
+//				for(String b : a) {
+//					System.out.print(b);
+//					pw.write(b);
+//				}
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		
+		/*
 		// hadoop info
 		Configuration hadoopConf = new Configuration();
 		//하둡측의 정보
@@ -92,11 +115,12 @@ public class Connection extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			/**/
+
 		}
 		response.setContentType("text/html");
 		response.setCharacterEncoding("UTF-8");
 		response.getWriter().write("Hello Hadoop!");
+		*/
 	}
 
 }
