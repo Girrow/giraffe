@@ -10,9 +10,9 @@
 	<bean id="dataSource" 
 	      class="org.springframework.jdbc.datasource.DriverManagerDataSource" 
 	      p:driverClassName="org.mariadb.jdbc.Driver"
-	      p:url="jdbc:mysql://192.168.29.169:3306/spring"
-	      p:username="root"
-	      p:password="1234" />
+	      p:url="jdbc:mysql://192.168.99.100:3306/spring"
+	      p:username="harin"
+	      p:password="harin" />
 	
 	<bean id="sqlSessionFactory" 
 	      class="org.mybatis.spring.SqlSessionFactoryBean" 
